@@ -26,50 +26,69 @@
 #include <cstring>
 #include <iostream>
 
-
 int count_paint_color(char board[8][8]) {
-    int count = -1;
-    if (board[0][0] == 'W') {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (j % 2 == 0 && board[i][j] == 'B')
-                    count++;
-                else if (j % 2 == 1 && board[i][j] == 'W')
-                    count++;
-            }
-        }
-    }
-    else {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (j % 2 == 0 && board[i][j] == 'W')
-                    count++;
-                else if (j % 2 == 1 && board[i][j] == 'B')
-                    count++;
-            }
-        }
-    }
+  int white_count = 0;
+  int black_count = 0;
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++)
+      if (i % 2 == 0) {
+        if (j % 2 == 0 && board[i][j] == 'B')
+          white_count++;
+        else if (j % 2 == 1 && board[i][j] == 'W')
+          white_count++;
+      } else {
+        if (j % 2 == 0 && board[i][j] == 'W')
+          white_count++;
+        else if (j % 2 == 1 && board[i][j] == 'B')
+          white_count++;
+      }
+  }
+
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++)
+      if (i % 2 == 0) {
+        if (j % 2 == 0 && board[i][j] == 'W')
+          black_count++;
+        else if (j % 2 == 1 && board[i][j] == 'B')
+          black_count++;
+      } else {
+        if (j % 2 == 0 && board[i][j] == 'B')
+          black_count++;
+        else if (j % 2 == 1 && board[i][j] == 'W')
+          black_count++;
+      }
+  }
+  return white_count > black_count ? black_count : white_count;
 };
 
 int main() {
 
-    int n, m;
-    std::cin >> n >> m;
-    char board[n][m];
-    memset(board, 0, sizeof(board));
-    for (int i = 0; i < n; i++) {
-        std::string str;
-        std::cin >> str;
-        for (int j = 0; j < m; j++) {
-            board[i][j] = str[j]; 
-        }
+  int n, m;
+  std::cin >> n >> m;
+  char board[n][m];
+  memset(board, 0, sizeof(board));
+  for (int i = 0; i < n; i++) {
+    std::string str;
+    std::cin >> str;
+    for (int j = 0; j < m; j++) {
+      board[i][j] = str[j];
     }
-    for (int i = 0; i <= n - 8; i++) {
-        for (int j = 0; j <= m - 8; j++) {
-            int a = count_paint_color(board[i][j]);
+  }
+  int min_count = 100000;
+  for (int i = 0; i <= n - 8; i++) {
+    for (int j = 0; j <= m - 8; j++) {
+      char sub_board[8][8];
+      for (int x = 0; x < 8; x++) {
+        for (int y = 0; y < 8; y++) {
+          sub_board[x][y] = board[i + x][j + y];
         }
-
+      }
+      int tmp = count_paint_color(sub_board);
+      if (min_count > tmp)
+        min_count = tmp;
     }
+  }
+  std::cout << min_count << '\n';
 
-    return 0;
+  return 0;
 }
