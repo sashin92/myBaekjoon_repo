@@ -51,7 +51,6 @@ int count_paint_color(char board[8][8]) {
     }
 };
 
-
 int main() {
 
     int n, m;
@@ -65,7 +64,12 @@ int main() {
             board[i][j] = str[j]; 
         }
     }
-    int a = count_paint_color(board);
+    for (int i = 0; i <= n - 8; i++) {
+        for (int j = 0; j <= m - 8; j++) {
+            int a = count_paint_color(board[i][j]);
+        }
+
+    }
 
     return 0;
 }
