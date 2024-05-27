@@ -1,2 +1,2 @@
 # myBaekjoon_repo
-언어연습겸 알고리즘해결 코드들
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=aaooaaoo123)](https://solved.ac/aaooaaoo123/)<br />
