@@ -26,22 +26,67 @@ N이 입력된다. K는 1이상 10,000이하의 정수이고, N은 1이상 1,000
 */
 
 #include <iostream>
+#include <vector>
+int getNumberOfCable(std::vector<int> &vec, int length);
+int searchTargetCable(std::vector<int>& vec);
+
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
 
     int numberOfHave;
     int numberOfNeed;
+    std::vector<int> vec;
+
     std::cin >> numberOfHave >> numberOfNeed;
 
-    int arr[numberOfHave];
     for (int i = 0; i < numberOfHave; i++) {
-        std::cin >> arr[i];
+        int tmp;
+        std::cin >> tmp;
+        vec.push_back(tmp);
+    }
+    
+    int targetCable = searchTargetCable(vec);
+    int high = targetCable;
+    int low = 0;
+    int mid = (high + low) / 2;
+    if (getNumberOfCable(vec, targetCable)) {
+        std::cout << targetCable << '\n';
+        return 0;
+    }
+    else if (getNumberOfCable(vec, targetCable - 1)) {
+        std::cout << targetCable - 1 << '\n';
+        return 0;
+    }
+    while (low + 1 < high) {
+        int count = getNumberOfCable(vec, mid);
+        if (count < numberOfNeed)
+            high = mid;
+        else {
+            high = mid;
+        }
+        mid = (high + low) / 2;
     }
 
-
-
+    std::cout << mid << '\n';
     return 0;
+}
+
+int searchTargetCable(std::vector<int>& vec) {
+    int min_length = vec.at(0);
+    for (auto node: vec) {
+        if (min_length > node)
+            min_length = node;
+    }
+    return min_length;
+}
+
+int getNumberOfCable(std::vector<int> &vec, int length) {
+    int count = 0;
+    for (auto node: vec) {
+        count += node / length;
+    }
+    return count;
 }
 
 // 재귀로 이분탐색(가장 작은 랜선 기준으로 양이 많으면 길이 늘리고, 적으면 길이 줄이고 해서 최적치에 가깝게)
