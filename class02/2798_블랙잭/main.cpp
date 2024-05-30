@@ -49,15 +49,16 @@ int main() {
     std::sort(vec.begin(), vec.end());
 
     int max = 0;
-    bool flag = 0;
+    bool flag = false;
     for (int i = 2; i < n; i++) {
         for (int j = 1; j < i; j++) {
             for (int k = 0; k < j; k++) {
                 int tmp = vec.at(k) + vec.at(j) + vec.at(i);
-                if (tmp > m) {
+                if (vec.at(k) > m) {
                     flag = true;
+                    break ;
                 }
-                else if (max < tmp)
+                else if (max < tmp && tmp <= m)
                     max = tmp;
             }
             if (flag)
