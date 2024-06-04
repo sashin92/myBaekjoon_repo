@@ -22,14 +22,13 @@
 n = int(input())
 
 def fn(n):
-    for i in range(1, n + 1):
-        div_sum = i + sum(map(int, str(i)))
+    for constructor in range(1, n + 1):
+        div_sum = constructor + sum(map(int, str(constructor)))
         if div_sum == n:
-            return i
+            return constructor
     return 0
 
 print(fn(n))
-    
-    
+
 
 # for loop를 돌리기 전에 map으로 처리가 가능한 것인지 확인을 하자
