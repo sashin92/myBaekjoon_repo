@@ -58,8 +58,10 @@ pBundle = lst[1]
 
 tCount = 0
 for node in sizeLst:
-    tCount += 1 + (node // tBundle)
+    if node % tBundle == 0:
+        tCount += (node // tBundle)
+    else:
+        tCount += 1 + (node // tBundle)
 
 print(tCount)
-
-print(5 // 9)
+print(person // pBundle, person % pBundle)
